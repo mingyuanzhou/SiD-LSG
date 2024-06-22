@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-# SiD-LSG
-Score identity Distillation with Long and Short Guidance for One-Step Text-to-Image Generation
-=======
-
-
 # Text-to-Image Diffusion Distillation with SiD-LSG
 
 This **SiD-LSG** repository contains the code and model checkpoints necessary to replicate the findings of  [Long and Short Guidance in Score identity Distillation for One-Step Text-to-Image Generation](https://arxiv.org/abs/2406.01561). The technique, Long and Short Guidance (**LSG**), is used with Score identity Distillation (**SiD**: [ICML 2024 paper](https://arxiv.org/abs/2404.04057), [Code](https://github.com/mingyuanzhou/SiD)) to distill Stable Diffusion models for one-step text-to-image generation.
@@ -211,4 +205,3 @@ If you want to contact me, you can reach me at `mingyuan.zhou@mccombs.utexas.edu
 
 This project uses the following license: [Apache-2.0 license](README.md).
 
->>>>>>> master
