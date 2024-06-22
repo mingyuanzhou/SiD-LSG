@@ -1,3 +1,20 @@
+# Copyright (c) 2024, Mingyuan Zhou. All rights reserved.
+
+# This work is licensed under APACHE LICENSE, VERSION 2.0
+# You should have received a copy of the license along with this
+# work. If not, see https://www.apache.org/licenses/LICENSE-2.0.txt
+
+# This file has been modified from the original located at:
+# https://github.com/NVlabs/stylegan2-ada-pytorch/blob/main/metrics/frechet_inception_distance.py
+
+# Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
 import os
 import numpy as np
 import scipy.linalg

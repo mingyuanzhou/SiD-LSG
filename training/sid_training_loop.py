@@ -1,9 +1,8 @@
 # Copyright (c) 2024, Mingyuan Zhou. All rights reserved.
 #
-# This work is licensed under a Creative Commons
-# Attribution-NonCommercial-ShareAlike 4.0 International License.
+# This work is licensed under APACHE LICENSE, VERSION 2.0
 # You should have received a copy of the license along with this
-# work. If not, see http://creativecommons.org/licenses/by-nc-sa/4.0/
+# work. If not, see https://www.apache.org/licenses/LICENSE-2.0.txt
 
 """Distill Stable Diffusion models using the SiD-LSG techniques described in the
 paper "Long and Short Guidance in Score identity Distillation for One-Step Text-to-Image Generation"."""
