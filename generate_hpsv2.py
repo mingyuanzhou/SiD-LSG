@@ -101,7 +101,7 @@ def compress_to_npz(folder_path, num=50000):
 @click.option('--repo_id', 'repo_id',   help='diffusion pipeline filename', metavar='PATH|URL',         type=str, default='runwayml/stable-diffusion-v1-5', show_default=True)
 
 
-def main(network_pkl, outdir, subdirs, seeds, max_batch_size, num_fid_samples, init_timestep, coco14_captions30k,repo_id,device=torch.device('cuda')):
+def main(network_pkl, outdir, subdirs, seeds, max_batch_size, num_fid_samples, init_timestep, repo_id,device=torch.device('cuda')):
     """Generate random images using SiD-LSG".
 
     Examples:
