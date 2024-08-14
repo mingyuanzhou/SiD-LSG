@@ -146,7 +146,7 @@ python generate_onestep.py --outdir='image_experiment/example_images/figure8' --
 ### Evaluations
 
 
-- Generation: Generate 30K images to calculate zeroshot COCO FID (see the comments inside  [generate_onestep.py](https://github.com/mingyuanzhou/SiD-LSG/generate_onestep.py) for more detail):
+- Generation: Generate 30K images to calculate zeroshot COCO FID (see the comments inside  [generate_onestep.py]([https://github.com/mingyuanzhou/SiD-LSG/generate_onestep.py](https://github.com/mingyuanzhou/SiD-LSG/blob/main/generate_onestep.py)) for more detail):
 
 ```bash
 #SLG guidance scale kappa1=kappa2=kappa3=kappa4 = 1.5, longer training
@@ -157,7 +157,7 @@ torchrun --standalone --nproc_per_node=4 generate_onestep.py --outdir='image_exp
 
 
 
-- Computing evaluation metrics: Following GigaGAN to compute FID and CLIP using the 30k images generated with [generate_onestep.py](https://github.com/mingyuanzhou/SiD-LSG/generate_onestep.py); you also need to place `captions.txt` into  the user defined path for `fake_dir`
+- Computing evaluation metrics: Following GigaGAN to compute FID and CLIP using the 30k images generated with [generate_onestep.py](https://github.com/mingyuanzhou/SiD-LSG/blob/main/generate_onestep.py); you also need to place `captions.txt` into  the user defined path for `fake_dir`
 
 Download [GigaGAN/evaluation](https://github.com/mingukkang/GigaGAN/tree/main/evaluation) 
 
