@@ -86,7 +86,12 @@ conda activate sid_lsg
 
 ### Prepare the Datasets
 
-To train the model, you must supply the training prompts. By default, we use Aesthetic6+, but you have the option to choose Aesthetic6.25+, Aesthetic6.5+, or any list of prompts that does not include COCO captions. To obtain the Aesthetic6+ prompts from Hugging Face, follow their provided guidelines. Once you have prepared the Aesthetic6+ prompts, place them as '/data/datasets/aesthetics_6_plus/aesthetics_6_plus.txt'.
+To train the model, you need to provide training prompts. By default, we use **Aesthetic6+**, but you can also choose **Aesthetic6.25+**, **Aesthetic6.5+**, or any other list of prompts, as long as they do not include COCO captions. 
+
+To obtain the **Aesthetic6+** prompts from Hugging Face, follow their guidelines. Once you have the prompts, save them in the following path:  
+`/data/datasets/aesthetics_6_plus/aesthetics_6_plus.txt`.
+
+Alternatively, you can download the prompts directly from [this link](https://huggingface.co/UT-Austin-PML/SiD-LSG/) and extract the `.tar` file to the specified directory.
 
 To evaluate the zero-shot FID of the distilled one-step generator, you will first need to download the COCO2014 validation set from [COCOdataset](https://cocodataset.org/#download), and then prepare the COCO2014 validation set using the following command:
 ```
