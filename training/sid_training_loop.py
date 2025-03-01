@@ -490,47 +490,47 @@ def training_loop(
                                          text_encoder=text_encoder, tokenizer=tokenizer, 
                                          resolution=resolution,dtype=dtype,return_images=False,num_steps=num_steps)
                 
-                # Compute loss for generator    
-                with misc.ddp_sync(fake_score_ddp, False): 
-                    #Denoised fake images (track generator gradient) under fake score network, using guidance scale: kappa2=kappa3=cfg_eval_fake
-                    y_fake = sid_sd_denoise(unet=fake_score_ddp,images=images,noise=noise,contexts=contexts,timesteps=timesteps,
-                                             noise_scheduler=noise_scheduler,
-                                             text_encoder=text_encoder, tokenizer=tokenizer, 
-                                             resolution=resolution,dtype=dtype,guidance_scale=cfg_eval_fake)
-
-
-                    #Denoised fake images (track generator gradient) under pretrained score network, using guidance scale: kappa4=cfg_eval_real  
-                    y_real = sid_sd_denoise(unet=true_score,images=images,noise=noise,contexts=contexts,timesteps=timesteps,
-                                     noise_scheduler=noise_scheduler,
-                                     text_encoder=text_encoder, tokenizer=tokenizer, 
-                                     resolution=resolution,dtype=dtype,guidance_scale=cfg_eval_real)
-                    
-                    nan_mask_images = torch.isnan(images).flatten(start_dim=1).any(dim=1)
-                    nan_mask_y_real = torch.isnan(y_real).flatten(start_dim=1).any(dim=1)
-                    nan_mask_y_fake = torch.isnan(y_fake).flatten(start_dim=1).any(dim=1)
-                    nan_mask = nan_mask_images | nan_mask_y_real | nan_mask_y_fake
-
-                    # Check if there are any NaN values present
-                    if nan_mask.any():
-                        # Invert the nan_mask to get a mask of samples without NaNs
-                        non_nan_mask = ~nan_mask
-                        # Filter out samples with NaNs from y_real and y_fake
-                        images = images[non_nan_mask]
-                        y_real = y_real[non_nan_mask]
-                        y_fake = y_fake[non_nan_mask]
- 
-                    with torch.no_grad():
-                        weight_factor = abs(images.to(torch.float32) - y_real.to(torch.float32)).mean(dim=[1, 2, 3], keepdim=True).clip(min=0.00001)
-                   
-                    if alpha==1:
-                        loss = (y_real - y_fake) * (y_fake - images) / weight_factor
-                    else:
-                        loss = (y_real - y_fake) * ((y_real - images) - alpha * (y_real - y_fake)) / weight_factor
-                                            
-                    loss=loss.sum().mul(loss_scaling_G / batch_gpu_total)
-                                                        
-                    if len(y_real) > 0:
-                        loss.backward()
+                    # Compute loss for generator    
+                    with misc.ddp_sync(fake_score_ddp, False): 
+                        #Denoised fake images (track generator gradient) under fake score network, using guidance scale: kappa2=kappa3=cfg_eval_fake
+                        y_fake = sid_sd_denoise(unet=fake_score_ddp,images=images,noise=noise,contexts=contexts,timesteps=timesteps,
+                                                 noise_scheduler=noise_scheduler,
+                                                 text_encoder=text_encoder, tokenizer=tokenizer, 
+                                                 resolution=resolution,dtype=dtype,guidance_scale=cfg_eval_fake)
+    
+    
+                        #Denoised fake images (track generator gradient) under pretrained score network, using guidance scale: kappa4=cfg_eval_real  
+                        y_real = sid_sd_denoise(unet=true_score,images=images,noise=noise,contexts=contexts,timesteps=timesteps,
+                                         noise_scheduler=noise_scheduler,
+                                         text_encoder=text_encoder, tokenizer=tokenizer, 
+                                         resolution=resolution,dtype=dtype,guidance_scale=cfg_eval_real)
+                        
+                        nan_mask_images = torch.isnan(images).flatten(start_dim=1).any(dim=1)
+                        nan_mask_y_real = torch.isnan(y_real).flatten(start_dim=1).any(dim=1)
+                        nan_mask_y_fake = torch.isnan(y_fake).flatten(start_dim=1).any(dim=1)
+                        nan_mask = nan_mask_images | nan_mask_y_real | nan_mask_y_fake
+    
+                        # Check if there are any NaN values present
+                        if nan_mask.any():
+                            # Invert the nan_mask to get a mask of samples without NaNs
+                            non_nan_mask = ~nan_mask
+                            # Filter out samples with NaNs from y_real and y_fake
+                            images = images[non_nan_mask]
+                            y_real = y_real[non_nan_mask]
+                            y_fake = y_fake[non_nan_mask]
+     
+                        with torch.no_grad():
+                            weight_factor = abs(images.to(torch.float32) - y_real.to(torch.float32)).mean(dim=[1, 2, 3], keepdim=True).clip(min=0.00001)
+                       
+                        if alpha==1:
+                            loss = (y_real - y_fake) * (y_fake - images) / weight_factor
+                        else:
+                            loss = (y_real - y_fake) * ((y_real - images) - alpha * (y_real - y_fake)) / weight_factor
+                                                
+                        loss=loss.sum().mul(loss_scaling_G / batch_gpu_total)
+                                                            
+                        if len(y_real) > 0:
+                            loss.backward()
                                                                                
             lossG_print = loss.item()
             training_stats.report('G_Loss/loss', lossG_print)
