@@ -13,7 +13,7 @@ We are actively developing an improved version of **SiD-LSG**, which will be pla
 4. **A New Guidance Strategy** – Introduces a novel guidance method with lower memory and computational requirements than LSG, while achieving comparable performance without the need for tuning the guidance scale.
 5. **Multistep Distillation** – Enhances performance by enabling the distillation of multi-step generators. Note this was already implemented in the current code, but some adjustments are needed to unlock its potential.
 
-If you find our work useful or incorporate our findings in your own research, please consider citing our papers:
+If you find our work useful or incorporate our findings in your own research, please consider citing our paper:
 
  - **SiD-LSG**:
 ```bibtex
