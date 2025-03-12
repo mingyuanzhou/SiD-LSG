@@ -3,10 +3,30 @@
 
 # Text-to-Image Diffusion Distillation with SiD-LSG
 
-This **SiD-LSG** repository contains the code and model checkpoints necessary to replicate the findings of  [Long and Short Guidance in Score identity Distillation for One-Step Text-to-Image Generation](https://arxiv.org/abs/2406.01561). The technique, Long and Short Guidance (**LSG**), is used with Score identity Distillation (**SiD**: [ICML 2024 paper](https://arxiv.org/abs/2404.04057), [Code](https://github.com/mingyuanzhou/SiD)) to distill Stable Diffusion models for one-step text-to-image generation.
+This **SiD-LSG** repository contains the code and model checkpoints necessary to replicate the findings of our ICLR 2025 paper: [Guided Score identity Distillation for Data-Free One-Step Text-to-Image Generation](https://arxiv.org/abs/2406.01561). Note this paper was previously titled as "Long and Short Guidance in Score identity Distillation for One-Step Text-to-Image Generation" and first appeared in ArXiv in June 2024. The technique, Long and Short Guidance (**LSG**), is used with Score identity Distillation (**SiD**: [ICML 2024 paper](https://arxiv.org/abs/2404.04057), [Code](https://github.com/mingyuanzhou/SiD)) to distill Stable Diffusion models for one-step text-to-image generation in a data-free manner.
+
+We are actively developing an improved version of **SiD-LSG**, which will be placed in a separate branch and introduce the following enhancements:  
+
+1. **AMP Support** – Leverages automatic mixed precision (AMP) to significantly reduce memory usage and improve speed compared to the current FP32 default, with minimal impact on performance.
+2. **FSDP + AMP Integration** – Supports much larger models by combining Fully Sharded Data Parallel (FSDP) with AMP. Our implementation relies solely on native PyTorch libraries, avoiding third-party containers to ensure maximum flexibility for code customization.  
+3. **Diffusion GAN Integration** – Building on the success of SiDA ([ICLR 2025 paper](https://arxiv.org/abs/2410.14919), [Code](https://github.com/mingyuanzhou/SiD/tree/sida)), which achieves state-of-the-art performance in distilling EDM and EDM2 models using a single generation step and without requiring CFG, we will integrate adversarial training from diffusion GANs into guided SiD. This enhancement will significantly improve the trade-off between reducing FID (better diversity) and increasing CLIP scores (better text-image alignment), all without introducing any additional model parameters.
+4. **A New Guidance Strategy** – Introduces a novel guidance method with lower memory and computational requirements than LSG, while achieving comparable performance without the need for tuning the guidance scale.
+5. **Multistep Distillation** – Enhances performance by enabling the distillation of multi-step generators. Note this was already implemented in the current code, but some adjustments are needed to unlock its potential.
 
 If you find our work useful or incorporate our findings in your own research, please consider citing our papers:
 
+ - **SiD-LSG**:
+```bibtex
+@inproceedings{zhou2025guided,
+title={Guided Score identity Distillation for Data-Free One-Step Text-to-Image Generation},
+author={Mingyuan Zhou and Zhendong Wang and Huangjie Zheng and Hai Huang},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://arxiv.org/abs/2406.01561}
+}
+```
+
+Our work on SiD-LSG builds on prior research on SiD. If relevant, you may also consider citing the following:
 - **SiD**:
 ```bibtex
 @inproceedings{zhou2024score,
@@ -14,19 +34,7 @@ If you find our work useful or incorporate our findings in your own research, pl
   author={Mingyuan Zhou and Huangjie Zheng and Zhendong Wang and Mingzhang Yin and Hai Huang},
   booktitle={International Conference on Machine Learning},
   url={https://arxiv.org/abs/2404.04057},
-  url_code={https://github.com/mingyuanzhou/SiD},
   year={2024}
-}
-```
- - **SiD-LSG**:
-```bibtex
-@article{zhou2024long,
-title={Long and Short Guidance in Score identity Distillation for One-Step Text-to-Image Generation},
-author={Mingyuan Zhou and Zhendong Wang and Huangjie Zheng and Hai Huang},
-journal={ArXiv 2406.01561},
-url={https://arxiv.org/abs/2406.01561},
-url_code={https://github.com/mingyuanzhou/SiD-LSG},
-year={2024}
 }
 ```
 
