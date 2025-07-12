@@ -103,8 +103,8 @@ Alternatively, you can download the prompts directly from [this link](https://hu
 
 To evaluate the zero-shot FID of the distilled one-step generator, you will first need to download the COCO2014 validation set from [COCOdataset](https://cocodataset.org/#download), and then prepare the COCO2014 validation set using the following command:
 ```
-python cocodataset_tool.py --source=/path/to/COCO/val \
-      --dest=MS-COCO-256/val --resolution=256×256
+python cocodataset_tool.py --source=/path/to/COCO \
+ --dest=MS-COCO-256 --resolution=256x256 --transform='center-crop' --phase='val'
 ```
 
 Once prepared, place them into the `/data/datasets/MS-COCO-256/val` folder.
